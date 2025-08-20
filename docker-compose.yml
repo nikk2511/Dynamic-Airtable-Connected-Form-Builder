@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  # MongoDB Database
+  mongodb:
+    image: mongo:7.0-rc
+    container_name: airtable-form-builder-db
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+      MONGO_INITDB_DATABASE: airtable-form-builder
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+      - ./init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro
+    networks:
+      - app-network
+
+  # Backend API
+  backend:
+    build: ./backend
+    container_name: airtable-form-builder-api
+    restart: unless-stopped
+    environment:
+      MONGODB_URI: mongodb://admin:password123@mongodb:27017/airtable-form-builder?authSource=admin
+      JWT_SECRET: development-secret-key-change-in-production
+      AIRTABLE_CLIENT_ID: ${AIRTABLE_CLIENT_ID}
+      AIRTABLE_CLIENT_SECRET: ${AIRTABLE_CLIENT_SECRET}
+      AIRTABLE_REDIRECT_URI: http://localhost:3000/login
+      PORT: 5000
+      NODE_ENV: development
+      FRONTEND_URL: http://localhost:3000
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    networks:
+      - app-network
+
+  # Frontend React App
+  frontend:
+    build: ./frontend
+    container_name: airtable-form-builder-web
+    restart: unless-stopped
+    environment:
+      REACT_APP_API_URL: http://localhost:5000/api
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+volumes:
+  mongodb_data:
+
+networks:
+  app-network:
+    driver: bridge
