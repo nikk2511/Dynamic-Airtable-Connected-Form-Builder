@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: airtable-form-builder-backend
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URI
+        fromDatabase:
+          name: airtable-form-builder-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: AIRTABLE_CLIENT_ID
+        sync: false
+      - key: AIRTABLE_CLIENT_SECRET
+        sync: false
+      - key: AIRTABLE_REDIRECT_URI
+        sync: false
+      - key: FRONTEND_URL
+        value: https://your-frontend-domain.vercel.app
+
+databases:
+  - name: airtable-form-builder-db
+    databaseName: airtable_form_builder
+    user: admin
+    region: oregon
+    plan: free
