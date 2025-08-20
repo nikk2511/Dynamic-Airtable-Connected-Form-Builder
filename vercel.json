@@ -1,19 +1,19 @@
 {
   "version": 2,
-  "name": "airtable-form-builder",
+  "name": "airtable-form-builder-frontend",
   "builds": [
     {
-      "src": "frontend/package.json",
+      "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "build"
+        "distDir": "frontend/build"
       }
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "frontend/build/index.html"
+      "dest": "/index.html"
     }
   ]
 }
