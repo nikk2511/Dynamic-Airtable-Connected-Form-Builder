@@ -105,6 +105,8 @@ function AppRoutes() {
 }
 
 function App() {
+  console.log('App component rendering...');
+  
   return (
     <AuthProvider>
       <DndProvider backend={HTML5Backend}>

@@ -23,8 +23,13 @@ const queryClient = new QueryClient({
   },
 });
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+console.log('React app initializing...');
+const rootElement = document.getElementById('root');
+console.log('Root element found:', rootElement);
 
+const root = ReactDOM.createRoot(rootElement);
+
+console.log('Rendering React app...');
 root.render(
   <React.StrictMode>
     <BrowserRouter>
