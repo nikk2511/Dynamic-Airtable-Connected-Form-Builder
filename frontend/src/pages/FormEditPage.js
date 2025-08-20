@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Edit, Settings } from 'lucide-react';
+import { ArrowLeft, Edit } from 'lucide-react';
 
 const FormEditPage = () => {
   const { id } = useParams();

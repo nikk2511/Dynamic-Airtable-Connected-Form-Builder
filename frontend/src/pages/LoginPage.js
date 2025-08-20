@@ -3,7 +3,6 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import LoadingSpinner from '../components/UI/LoadingSpinner';
 import { Database, Shield, Zap, ArrowRight, AlertCircle } from 'lucide-react';
-import toast from 'react-hot-toast';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -11,6 +10,18 @@ const LoginPage = () => {
   const { getAirtableAuthUrl, handleAirtableCallback } = useAuth();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const handleCallback = async (code, state) => {
+    setLoading(true);
+    try {
+      await handleAirtableCallback(code, state);
+      navigate('/dashboard');
+    } catch (error) {
+      setError('Authentication failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     // Handle OAuth callback
@@ -26,19 +37,7 @@ const LoginPage = () => {
     if (code && state) {
       handleCallback(code, state);
     }
-  }, [searchParams]);
-
-  const handleCallback = async (code, state) => {
-    setLoading(true);
-    try {
-      await handleAirtableCallback(code, state);
-      navigate('/dashboard');
-    } catch (error) {
-      setError('Authentication failed. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, [searchParams]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleAirtableLogin = async () => {
     setLoading(true);
@@ -148,13 +147,19 @@ const LoginPage = () => {
               <div className="text-center">
                 <p className="text-sm text-gray-500">
                   By continuing, you agree to our{' '}
-                  <a href="#" className="text-blue-600 hover:underline">
+                  <button 
+                    onClick={() => alert('Terms of Service - Coming Soon')} 
+                    className="text-blue-600 hover:underline bg-transparent border-none p-0 cursor-pointer"
+                  >
                     Terms of Service
-                  </a>{' '}
+                  </button>{' '}
                   and{' '}
-                  <a href="#" className="text-blue-600 hover:underline">
+                  <button 
+                    onClick={() => alert('Privacy Policy - Coming Soon')} 
+                    className="text-blue-600 hover:underline bg-transparent border-none p-0 cursor-pointer"
+                  >
                     Privacy Policy
-                  </a>
+                  </button>
                 </p>
               </div>
             </div>
@@ -181,13 +186,19 @@ const LoginPage = () => {
                 Need help getting started?
               </p>
               <div className="space-x-4">
-                <a href="#" className="text-blue-600 text-sm hover:underline">
+                <button 
+                  onClick={() => alert('Documentation - Check our README.md file!')} 
+                  className="text-blue-600 text-sm hover:underline bg-transparent border-none p-0 cursor-pointer"
+                >
                   View Documentation
-                </a>
+                </button>
                 <span className="text-gray-300">•</span>
-                <a href="#" className="text-blue-600 text-sm hover:underline">
+                <button 
+                  onClick={() => alert('Contact Support - support@bustbrainlabs.com')} 
+                  className="text-blue-600 text-sm hover:underline bg-transparent border-none p-0 cursor-pointer"
+                >
                   Contact Support
-                </a>
+                </button>
               </div>
             </div>
           </div>

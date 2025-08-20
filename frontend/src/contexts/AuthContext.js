@@ -55,7 +55,7 @@ export function AuthProvider({ children }) {
       }
     }
     setLoading(false);
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const verifyToken = async () => {
     try {

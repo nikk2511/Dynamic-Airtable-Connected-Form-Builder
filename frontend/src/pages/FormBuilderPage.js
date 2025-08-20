@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Database, Table, Plus, Settings } from 'lucide-react';
-import LoadingSpinner from '../components/UI/LoadingSpinner';
 
 const FormBuilderPage = () => {
   const navigate = useNavigate();
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep] = useState(1);
 
   const steps = [
     { id: 1, name: 'Select Base', icon: Database },

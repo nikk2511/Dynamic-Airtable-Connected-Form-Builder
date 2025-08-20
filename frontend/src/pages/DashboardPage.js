@@ -10,7 +10,6 @@ import {
   Edit, 
   Trash2, 
   ExternalLink,
-  BarChart3,
   Calendar,
   Users,
   Copy,
