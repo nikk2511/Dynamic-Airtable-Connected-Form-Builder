@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "name": "airtable-form-builder",
   "builds": [
     {
       "src": "frontend/package.json",
@@ -12,7 +13,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "frontend/build/index.html"
     }
   ]
 }

@@ -1,0 +1,5 @@
+[33m52fe03b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m Add missing dependencies and setup files for frontend and backend
+[33m588d112[m Fix Vercel deployment: use proper builds configuration with routing
+[33m8eb2068[m Fix Vercel deployment: use proper builds configuration for monorepo
+[33mc17f3da[m Simplify Vercel configuration for better deployment
+[33m46042ff[m Fix Vercel deployment: use proper builds configuration
